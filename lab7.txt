@@ -1,0 +1,101 @@
+level-1:
+1)name and age of all the movie characters who are not teenagers:
+
+SELECT Character_Name,Age
+ FROM movie_characters
+ WHERE Age
+ NOT BETWEEN 13 and 19;
+
+2)the movieid of all the movies and no of movie characters in each movie:
+
+SELECT Movie_ID,COUNT(Character_ID)
+   FROM movie_character_relationship
+   GROUP BY Movie_ID;
+
+3)the name of all the movies and the number of movie characters in each movie:
+
+SELECT Movie_Name,COUNT(Character_ID)
+   FROM movie_character_relationship JOIN movie
+   USING (Movie_ID)
+   GROUP BY Movie_ID;
+level-2:
+1)display movie name, imdb rating & year of release of all the movie of byomkesh [nb: movie name may not contain the term byomkesh]:
+
+SELECT Movie_name,IMDB_Rating,Year
+      FROM movie  
+       where Movie_ID  IN
+(SELECT Movie_ID
+   FROM movie_character_relationship
+   WHERE Character_ID=(SELECT Character_ID 
+                             FROM movie_characters
+                      WHERE Character_Name= 'Byomkesh Bakshi'));
+   
+   
+2)movie name,year of release ,imdb rating and director name of all the movies that contain at least 13 characters in its name(movie name):
+
+
+SELECT Movie_Name,Year,IMDB_Rating,Director_Name
+   FROM movie JOIN director
+   USING (Person_ID)
+   WHERE Movie_Name LIKE '_____________%';
+3) ------ at most 12 characters -------
+
+SELECT Movie_Name,Year,IMDB_Rating,Director_Name
+   FROM movie JOIN director
+   USING (Person_ID)
+   WHERE Movie_Name NOT LIKE '_____________%';
+
+
+4)name and age of all the characters from all the movies of byomkesh(nb: same as 1):
+
+
+SELECT DISTINCT(Character_Name),Age
+  FROM movie_character_relationship join movie_characters
+  USING (Character_ID)
+  WHERE Movie_ID IN 
+(SELECT Movie_ID
+   FROM movie_character_relationship
+   WHERE Character_ID=(SELECT Character_ID 
+                             FROM movie_characters
+                      WHERE Character_Name= 'Byomkesh Bakshi'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

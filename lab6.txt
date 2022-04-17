@@ -1,0 +1,59 @@
+
+1)movie name, genre & imdb rating of all the movies whose imdb rating greater than 8.0:
+
+SELECT Movie_Name,Genre,IMDB_Rating
+  FROM movie
+  WHERE IMDB_Rating>8.0;
+
+2)all the movie genre & corresponding imdb rating of each rating:
+
+SELECT Genre, AVG(IMDB_Rating)
+  FROM movie
+  GROUP BY Genre;
+
+3)name of genres & corresponding average imdb rating of those genres whose avg imdb rating is greater than 8.0:
+
+SELECT Genre, AVG(IMDB_Rating) as IMDB
+   FROM movie
+   GROUP BY Genre
+   HAVING IMDB>8.0;
+
+
+4)among all the movies --- determine the lowest average IMDB rating:
+
+
+SELECT MIN(IMDB) as lowIMDB
+FROM(SELECT Genre, AVG(IMDB_Rating) as IMDB
+   FROM movie
+   GROUP BY Genre) as AVGI;
+
+  
+5)name of the genre & the avg imdb rating of that genre whose avg rating is the lowest:
+
+SELECT Genre,AVG(IMDB_Rating)  
+ FROM movie
+    GROUP BY Genre
+    HAVING  avg(IMDB_Rating) = (
+SELECT MAX(IMDB) as maximum_IMDB
+   FROM(SELECT Genre, AVG(IMDB_Rating) as IMDB
+   FROM movie
+   GROUP BY Genre) as AVGI);
+   
+
+6)movie name, genre & imdb rating of those movies whose imdb rating is below average:
+
+SELECT Movie_Name,Genre,IMDB_Rating
+  FROM movie
+  where IMDB_Rating< (SELECT AVG(IMDB_Rating) FROM movie);
+
+7)name of genre & average imdb rating of those movie genre whose avg imdb rating is below average:
+
+SELECT Genre,AVG(IMDB_Rating)  
+ FROM movie
+    GROUP BY Genre
+    HAVING  AVG(IMDB_Rating) < (
+SELECT AVG(IMDB) 
+   FROM(SELECT Genre, AVG(IMDB_Rating) as IMDB
+   FROM movie
+   GROUP BY Genre) as AVGI);
+   

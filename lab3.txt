@@ -1,0 +1,124 @@
+INSERT INTO director
+    VALUES(5,'Zack snyder',null,null);
+INSERT INTO director
+    VALUES(6,'Martin',null,null);
+INSERT INTO director
+    VALUES(7,'Sandip Ray',10,4);
+INSERT INTO director
+    VALUES(8,'Anik Dutta',4,2);
+**************************************
+INSERT INTO movie
+    VALUES(7,'300','Action',7.7,5);
+*****************************************
+1)name,no of awards ,no of films of all the director where name starts with 's';
+
+SELECT Name,Awards,Films 
+          from director
+          WHERE Name LIKE 'S%';
+2)same as 1st one but name contains 's';
+
+SELECT Name,Awards,Films 
+          from director
+          WHERE Name LIKE '%s%';
+3)2nd last chac --- 'a' or 'e';
+
+SELECT Name,Awards,Films 
+          from director
+          WHERE Name LIKE '%a__' or
+                Name LIKE '%e__';
+4)name,genre & imdb rating of all the movies with the term 'Bhoot' in its name:
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE Name LIKE '%Bhoot%';
+
+5)name only contains 2 chac:
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE Name LIKE '__';
+6)name contains at least 5 chac:
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE Name LIKE '%_____';
+7)name contains 1,2,3 or 4 chac:
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE Name NOT LIKE '%_____';
+8)highest imdb rating:
+
+SELECT MAX(IMDB_Rating)
+   FROM movie;
+   
+9)highest imdb rating of thriller type movies:
+
+SELECT MAX(IMDB_Rating) as IMDB_Rating
+   FROM movie
+   WHERE Genre='Thriller';
+   
+10)highest imdb in each genre:
+
+SELECT MAX(IMDB_Rating) as IMDB_Rating
+   FROM movie
+   GROUP BY Genre;
+11)name,genre &imdb rating of the movie with lowest imdb rating:
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE IMDB_Rating=(SELECT MIN(IMDB_Rating) FROM movie);
+12)name,genre,lowest imdb of all the movies of drama horror & thriller genre;
+SELECT Movie_Name,Genre,IMDB_Rating
+  FROM movie
+  WHERE (Genre,IMDB_Rating) IN 
+  (SELECT Genre,MIN(IMDB_Rating)
+          FROM movie
+          GROUP BY Genre
+ HAVING Genre IN ('drama','thriller','history');
+  
+
+
+13)
+
+SELECT Name,Genre,IMDB_Rating
+   FROM movie
+   WHERE Director_ID
+   IN
+   (SELECT Director_ID
+       FROM director
+    WHERE Name IN
+    ('satyajit ray','Raj Kumar Hirani'));
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+

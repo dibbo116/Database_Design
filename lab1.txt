@@ -1,0 +1,26 @@
+CREATE TABLE Director
+    (
+    Director_ID int,
+    Name    varchar(100),
+    Awards   int,
+    Films  int,
+    PRIMARY KEY (Director_ID));
+    
+    
+INSERT INTO director
+  VALUES(2,'Zahir Raihan',10,5);
+CREATE TABLE Movie
+(
+    ID int,
+    Name varchar(1000),
+    Genre varchar(50),
+    IMDB_Rating Numeric(3,1),
+    Director_ID int,
+    PRIMARY KEY(ID),
+    FOREIGN KEY(Director_ID) REFERENCES director(Director_ID)
+
+
+
+);
+INSERT INTO movie 
+  VALUES(1,'satyajit ray','Drama',8.4,1);

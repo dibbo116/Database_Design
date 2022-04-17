@@ -1,0 +1,65 @@
+INSERT INTO movie
+    VALUES(1,'Heerak Rajar Deshe','Drama',8.8,1);
+
+
+ALTER TABLE movie
+    ADD PRIMARY KEY(ID);
+
+
+UPDATE movie
+   SET ID=5
+   WHERE Name='3 idiots'
+
+INSERT INTO director
+    VALUES(1,'Satyajit ray',45,55);
+INSERT INTO director
+    VALUES(2,'Zahir Raihan',5,8);
+INSERT INTO director
+    VALUES(3,'Raj Kumar Hirani',5,7);
+INSERT INTO director
+    VALUES(4,'Srijeet Mukherjee',15,10);
+
+
+ALTER TABLE movie
+  ADD FOREIGN KEY(Director_ID) REFERENCES director(Director_ID);
+
+
+1) name ,genre , imdb of all the movies:
+SELECT Name,Genre,IMDB_Rating
+    FROM movie;
+
+
+2) all possible info of the movies:
+SELECT *
+  FROM movie;
+
+
+3)cartesian product of table movie & director:
+SELECT *
+  FROM movie,director;
+
+
+4)name,director name,genre,imdb of all the movies:
+SELECT movie.name,director.name,Genre,IMDB_Rating
+  FROM movie,director
+  where movie.Director_ID=director.Director_ID;
+
+5) alias MOvie_name & Director_name:
+SELECT movie.name as MOVIE_NAME,director.name as DIRECTOR_NAME,Genre,IMDB_Rating
+  FROM movie,director
+  where movie.Director_ID=director.Director_ID;
+
+
+6)all the genre from movie table: *means disticnt genre*
+SELECT DISTINCT Genre
+  FROM movie;
+
+7)name ,director name & imdb of all thriller type movies:
+SELECT movie.name Movie_name,director.name Director_name,IMDB_Rating
+  from director,movie
+  WHERE movie.Director_ID=director.Director_ID
+      AND Genre='thriller';
+
+8)name,genre & IMDB (out of 100) of all the movies:
+SELECT Name,Genre,IMDB_Rating*10 IMDB_Rating
+  FROM movie;

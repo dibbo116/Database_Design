@@ -1,0 +1,58 @@
+1) display name, current age , id ,#films & #Awards as actor & #films &#awards as director of all the actors & director:
+
+SELECT Actor_Name as Name,Person_ID,2019-actor.BirthYear as Age,actor.No_Of_Films as Afilms,actor.No_Of_Awards as Aawards, director.No_Of_Films as Dfilms, director.No_Of_Awards as dawards
+   FROM actor LEFT OUTER JOIN director
+   USING (Person_ID)
+   UNION
+SELECT Director_Name as Name,Person_ID,2019-director.BirthYear as Age,actor.No_Of_Films as Afilms,actor.No_Of_Awards as Aawards, director.No_Of_Films as Dfilms, director.No_Of_Awards as dawards
+   FROM actor RIGHT OUTER JOIN director
+   USING (Person_ID);
+
+2)id, name,age films & awards of all the actors who never directed any film:
+
+SELECT actor.Person_ID,Actor_Name,2019-actor.BirthYear as Age, actor.No_Of_Films,actor.No_Of_Awards
+  FROM actor LEFT OUTER JOIN director
+  USING (Person_ID)
+  WHERE director.Person_ID is null;
+
+3)id, name,birthyear ,films,awards of the director who directed most of the films:
+SELECT Person_ID,Director_Name,BirthYear,No_Of_Awards
+  FROM director
+  WHERE No_Of_Films=(SELECT MAX(No_Of_Films) FROM director);
+ 
+4)id, name,birthyear,films, awards of the youngest actor:
+SELECT Person_ID,Actor_Name,BirthYear,No_Of_Awards
+  FROM actor
+  WHERE 2019-BirthYear=(SELECT MIN(2019-BirthYear) FROM actor);
+ 
+5)all the genres & corresponding average imdb rating of each genre:
+
+SELECT Genre,AVG(IMDB_Rating)
+ FROM movie
+ GROUP BY Genre;
+
+6)highest>>average imdb rating:
+SELECT MAX(IMDB)
+FROM (SELECT AVG(IMDB_Rating) as IMDB
+ FROM movie
+ GROUP BY Genre) as AVGIMDB;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  
+ 

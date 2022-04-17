@@ -1,0 +1,133 @@
+*****************
+CREATE TABLE Director
+( Person_ID int,
+  Director_Name varchar(100),
+  BirthYear int,
+  Films int,
+  Awards int,
+ PRIMARY KEY (Person_ID)
+
+);
+
+***********************
+CREATE TABLE Actor
+( Person_ID int,
+  Actor_Name varchar(100),
+  BirthYear int,
+  Films int,
+  Awards int,
+ PRIMARY KEY (Person_ID)
+
+);
+************************
+
+INSERT INTO director
+  VALUES(1,'Zahir Raihan',1935,5,5);
+INSERT INTO director
+  VALUES(2,'Raj Kumar Hirani',1962,5,9);
+INSERT INTO director
+  VALUES(3,'Satyajit Ray',1921,45,55);
+INSERT INTO director
+  VALUES(4,'Anjon Dutta',1953,23,17);
+INSERT INTO director
+  VALUES(5,'Rituporno Ghosh',1963,20,15);
+INSERT INTO director
+  VALUES(6,'Goutam Ghose',1950,12,8);
+INSERT INTO director
+  VALUES(7,'Aparna Sen',1945,12,7);
+INSERT INTO director
+  VALUES(8,'Kaushik Ganguly',1968,23,30);
+ 
+ *******************************************
+INSERT INTO actor
+  VALUES(11,'Uttam Kumar',1926,190,150);
+INSERT INTO actor
+  VALUES(12,'Razzak',1942,120,100);
+INSERT INTO actor
+  VALUES(7,'Aparna Sen',1945,73,43);
+INSERT INTO  actor
+  VALUES(6,'Gautam Ghose',1950,3,1);
+INSERT INTO actor
+  VALUES(8,'Kaushik Ganguly',1968,22,7);
+INSERT INTO actor
+  VALUES(10,'Soumitra Chatterjee',1935,250,220);
+INSERT INTO director
+  VALUES(4,'Anjon Dutta',1953,30,10);
+
+ **********************************************
+display:
+1) name, no of films & no of awards of all the directors in sorted form >> according to their name(alphabetically):
+
+SELECT Director_Name,Films, Awards
+  FROM director
+  ORDER BY Director_Name asc;
+2) .... according to no of films in decending order & no of awards in decending order:
+
+SELECT Director_Name,Films, Awards
+  FROM director
+  ORDER BY Films DESC, Awards DESC   ;
+3) id , name & current age of all the directors & actors :
+
+SELECT Person_ID,Director_name as Name, 2019-BirthYear as Age
+   FROM director
+   UNION
+SELECT Person_ID,Actor_Name as Name,2019-BirthYear as Age
+   FROM actor;
+4)id , name, current age , no of films as actor & no of films as director of those actors who directed several films or vice versa:
+
+SELECT Person_ID,Actor_Name as Name,2019-actor.BirthYear as Age,actor.Films as Afilms,director.Films as Dfilms
+   FROM actor JOIN director
+   USING(Person_ID) ;
+5) id ,name,current age , no of films as actor, no of films as director of all the directors (if the director never acted in a film then no of films as actor will be null):
+
+SELECT Person_ID,director_Name as Name,2019-director.BirthYear as Age,actor.Films as Afilms,director.Films as Dfilms
+   FROM director LEFT OUTER JOIN actor
+   USING(Person_ID) ;
+
+6) name , films as actor , awards as actor, films as director, awards as director of all the actors (if the actor never directed any film ,then no of films & awards as director will be null):
+
+SELECT Actor_Name as Name,actor.Films as Afilms,actor.Awards as Aawards, director.Films as Dfilms, director.Awards as dawards
+   FROM actor LEFT OUTER JOIN director
+   USING (Person_ID);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+    
+
+
+ 
+ 
+  
+ 
+ 
+ 
+ 
+  

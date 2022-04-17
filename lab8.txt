@@ -1,0 +1,41 @@
+1.name and age of all the movie character from all the movies of satyajit roy:
+
+a)Without JOIN:
+
+SELECT Character_Name,Age
+  FROM movie_characters
+  WHERE Character_ID IN (SELECT Character_ID
+  FROM movie_character_relationship
+  WHERE Movie_ID IN (SELECT Movie_ID
+  FROM movie
+  WHERE Person_ID= (SELECT Person_ID
+  from director
+  WHERE Director_Name ='Satyajit Ray'))) ;
+
+b)with join:
+
+SELECT Character_Name, Age
+  FROM movie_characters JOIN movie_character_relationship
+  USING (Character_ID)
+  WHERE Character_ID IN
+  (SELECT Character_ID 
+  FROM movie_character_relationship
+  WHERE Movie_ID  IN (SELECT Movie_ID
+  FROM director JOIN movie
+  USING(Person_ID)
+ WHERE director.Director_Name='Satyajit Ray'));
+
+
+2. Movie Name, Genre and IMDB Rating of The movies with the HIGHEST IMDB RAting in each genre:
+
+SELECT Movie_Name,Genre,IMDB_Rating
+  FROM movie
+  WHERE (Genre,IMDB_Rating) IN 
+  (SELECT Genre,MAX(IMDB_Rating)
+          FROM movie
+          GROUP BY Genre);
+ 
+
+
+
+

@@ -1,0 +1,24 @@
+1)
+
+SELECT Book_Name,Genre
+ FROM book
+ WHERE Language='Bangla';
+
+
+2)
+
+SELECT Genre,MAX(Price)
+ FROM book JOIN book_publisher_relationship
+ USING (Book_No)
+ GROUP BY Genre;
+
+
+3)
+
+SELECT Book_Name,Author_Name,Genre,Price
+ FROM author_book_relationship NATURAL JOIN book NATURAL JOIN author NATURAL JOIN book_publisher_relationship
+WHERE (Genre,Price) IN
+(SELECT Genre,MAX(Price) as Price
+ FROM book JOIN book_publisher_relationship
+ USING (Book_No)
+ GROUP BY Genre);
